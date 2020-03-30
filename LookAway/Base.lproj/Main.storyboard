@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <items>
+                            <menuItem title="LookAway" id="1Xt-HY-uBw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="LookAway" systemMenu="apple" id="uQy-DD-JDr">
+                                    <items>
+                                        <menuItem title="About LookAway" id="5kV-Vb-QxS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                                        <menuItem title="Services" id="NMo-om-nkz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                                        <menuItem title="Hide LookAway" keyEquivalent="h" id="Olw-nP-bQN">
+                                            <connections>
+                                                <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="hideOtherApplications:" target="Ady-hI-5gd" id="VT4-aY-XCT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show All" id="Kd2-mp-pUS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="unhideAllApplications:" target="Ady-hI-5gd" id="Dhg-Le-xox"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                                        <menuItem title="Quit LookAway" keyEquivalent="q" id="4sb-4s-VLi">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Help" id="wpr-3q-Mcd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
+                                    <items>
+                                        <menuItem title="LookAway Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                            <connections>
+                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LookAway" customModuleProvider="target"/>
+                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="dzQ-Qn-OEY">
+            <objects>
+                <windowController storyboardIdentifier="WindowController" id="KyH-uK-uD0" customClass="WindowController" customModule="LookAway" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" identifier="WindowController" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Mlw-qC-qwi">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="477" y="299" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <connections>
+                            <outlet property="delegate" destination="KyH-uK-uD0" id="QEt-iH-JTv"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="zla-Z2-VCO" kind="relationship" relationship="window.shadowedContentViewController" id="bu9-9W-fFd"/>
+                    </connections>
+                </windowController>
+                <customObject id="NwF-19-oyy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="235"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="y0Y-7x-jB7">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="zla-Z2-VCO" customClass="ViewController" customModule="LookAway" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="AFH-GQ-dQ9">
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="379"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Va5-Yz-zF8">
+                                <rect key="frame" x="176" y="154" width="219" height="70"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Look Away" id="6ex-Uo-lIG">
+                                    <font key="font" metaFont="systemBold" size="42"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbC-WQ-BW1">
+                                <rect key="frame" x="43" y="123" width="475" height="44"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Look at an object 20 feet away for 20 seconds. You'll get a notification once it is done." id="D08-sg-pur">
+                                    <font key="font" metaFont="system" size="22"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button autoresizesSubviews="NO" horizontalHuggingPriority="135" verticalHuggingPriority="48" horizontalCompressionResistancePriority="135" verticalCompressionResistancePriority="48" misplaced="YES" placeholderIntrinsicWidth="135" placeholderIntrinsicHeight="48" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ct-o8-txY">
+                                <rect key="frame" x="220" y="67" width="135" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="TjK-kg-tOo"/>
+                                    <constraint firstAttribute="width" constant="135" id="XiR-Dj-ftJ"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ifq-5Z-na9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="skipButtonClick:" target="zla-Z2-VCO" id="1E5-mG-lLo"/>
+                                </connections>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPg-gi-yvO">
+                                <rect key="frame" x="225" y="239" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="2nd-Ax-apm"/>
+                                    <constraint firstAttribute="height" constant="120" id="mtf-JS-fKH"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="kuO-tb-mvK"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kPg-gi-yvO" firstAttribute="centerY" secondItem="AFH-GQ-dQ9" secondAttribute="centerY" multiplier="0.75" id="44x-iq-4DM"/>
+                            <constraint firstItem="5Ct-o8-txY" firstAttribute="centerY" secondItem="AFH-GQ-dQ9" secondAttribute="centerY" multiplier="1.25" id="4L9-v4-ZsN"/>
+                            <constraint firstItem="Va5-Yz-zF8" firstAttribute="centerY" secondItem="AFH-GQ-dQ9" secondAttribute="centerY" multiplier="0.98" id="R9f-ZR-a1g"/>
+                            <constraint firstItem="cbC-WQ-BW1" firstAttribute="centerY" secondItem="AFH-GQ-dQ9" secondAttribute="centerY" multiplier="1.1" id="Vmb-lO-z2Y"/>
+                            <constraint firstItem="kPg-gi-yvO" firstAttribute="centerX" secondItem="AFH-GQ-dQ9" secondAttribute="centerX" id="XiH-7X-pL6"/>
+                            <constraint firstItem="5Ct-o8-txY" firstAttribute="centerX" secondItem="AFH-GQ-dQ9" secondAttribute="centerX" id="YWO-ho-DTy"/>
+                            <constraint firstItem="Va5-Yz-zF8" firstAttribute="centerX" secondItem="AFH-GQ-dQ9" secondAttribute="centerX" id="b1j-3E-sFW"/>
+                            <constraint firstItem="cbC-WQ-BW1" firstAttribute="centerX" secondItem="AFH-GQ-dQ9" secondAttribute="centerX" id="crE-gj-Lp5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="5Ct-o8-txY" id="oms-KF-jXb"/>
+                    </connections>
+                </viewController>
+                <customObject id="Qd3-If-clU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="749.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AppIcon" width="128" height="128"/>
+        <image name="Button" width="649" height="230"/>
+    </resources>
+</document>
