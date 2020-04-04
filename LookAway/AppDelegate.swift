@@ -156,6 +156,7 @@ extension AppDelegate {
     
     @objc
     func timerTick(_ sender: Timer) {
+        updateStatusText()
         if (isPaused) {
             pausedFor-=1
             if pausedFor == 0 {
@@ -163,7 +164,7 @@ extension AppDelegate {
             }
         } else {
             timeUntilBreak -= 1
-            updateStatusText()
+            
             
             // 1 chunk of 20s left
             if timeUntilBreak == 1 {
@@ -184,11 +185,15 @@ extension AppDelegate {
     
     func updateStatusText() {
         guard let statusButton = statusBarItem.button else { return }
-        var intervalsToMin:Int = timeUntilBreak/3
-        if timeUntilBreak % 3 != 0{
-            intervalsToMin += 1
+        if isPaused {
+            statusButton.title = "👁️ Paused"
+        } else {
+            var intervalsToMin:Int = timeUntilBreak/3
+            if timeUntilBreak % 3 != 0{
+                intervalsToMin += 1
+            }
+            statusButton.title = "👁️ \(intervalsToMin) min"
         }
-        statusButton.title = "👁️ \(intervalsToMin) min"
     }
 }
 
@@ -208,6 +213,7 @@ extension AppDelegate {
         isPaused = true
         pausedFor = stime * (60/20)
         initTimer()
+        updateStatusText()
     }
     
     @objc
