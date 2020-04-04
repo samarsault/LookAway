@@ -1,12 +1,6 @@
 import Cocoa
 import Foundation
 
-struct Constants {
-    static let resume = "Resume"
-    static let pause = "Pause"
-    static let maxTime = 2
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -15,6 +9,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var timeUntilBreak = 0
     var timer: Timer? = nil
     var windowController: NSWindowController? = nil
+    
+    var isPaused = false
+    var pausedFor = 0
+    let skipTimes = [10, 30, 60, 120]
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -27,18 +25,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Add Menu
         let statusMenu: NSMenu = {
             let menu = NSMenu()
-            let pauseItem: NSMenuItem = {
+            
+            let resetItem: NSMenuItem = {
                 let item = NSMenuItem(
-                    title: "Pause",
-                    action: #selector(pauseTimer),
+                    title: "Reset",
+                    action: #selector(resetTimer),
+                    keyEquivalent: ""
+                )
+                item.target = self
+                
+                return item
+            }()
+            
+            menu.addItem(resetItem)
+            menu.addItem(.separator())
+            let skipItem: NSMenuItem = {
+                let item = NSMenuItem(
+                    title: "Skip For",
+                    action: nil,
                     keyEquivalent: ""
                 )
                 
                 item.tag = 1
                 item.target = self
-                
+                item.isEnabled  = false
                 return item
             }()
+            
+            menu.addItem(skipItem)
+            
+            for stime in skipTimes {
+                var menuTitle = ""
+                
+                if stime >= 60 {
+                    menuTitle = "\(stime/60) hour(s)"
+                } else {
+                    menuTitle = "\(stime) min(s)"
+                }
+                
+                let item:NSMenuItem = NSMenuItem(
+                    title: menuTitle,
+                    action: #selector(skipTimer),
+                    keyEquivalent: ""
+                )
+                item.representedObject = stime
+                item.target = self
+                item.indentationLevel = 1
+                menu.addItem(item)
+            }
+          
             
             let quitItem: NSMenuItem = {
                 let item = NSMenuItem(
@@ -52,8 +87,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 return item
             }()
-            
-            menu.addItem(pauseItem)
             menu.addItem(.separator())
             menu.addItem(quitItem)
             
@@ -123,22 +156,29 @@ extension AppDelegate {
     
     @objc
     func timerTick(_ sender: Timer) {
-        timeUntilBreak -= 1
-        updateStatusText()
-        
-        // 1 chunk of 20s left
-        if timeUntilBreak == 1 {
-            showNotification("20 seconds left for next break")
-        }
-            // 20 minutes over
-        else if timeUntilBreak == 0 {
-            showWindow()
-        }
-            // 20s passed after showing window
-        else if timeUntilBreak == -1 {
-            showNotification("Well Done!")
-            // Hide window
-            closeWindow()
+        if (isPaused) {
+            pausedFor-=1
+            if pausedFor == 0 {
+                isPaused = false
+            }
+        } else {
+            timeUntilBreak -= 1
+            updateStatusText()
+            
+            // 1 chunk of 20s left
+            if timeUntilBreak == 1 {
+                showNotification("20 seconds left for next break")
+            }
+                // 20 minutes over
+            else if timeUntilBreak == 0 {
+                showWindow()
+            }
+                // 20s passed after showing window
+            else if timeUntilBreak == -1 {
+                showNotification("Well Done!")
+                // Hide window
+                closeWindow()
+            }
         }
     }
     
@@ -162,15 +202,16 @@ extension AppDelegate {
     }
     
     @objc
-    func pauseTimer(_ sender: NSMenuItem) {
-        if sender.title == Constants.pause {
-            timer!.invalidate()
-            sender.title = Constants.resume
-        }
-        else if sender.title == Constants.resume {
-            initTimer()
-            sender.title = Constants.pause
-        }
+    func skipTimer(_ sender: NSMenuItem) {
+        timer!.invalidate()
+        let stime:Int = sender.representedObject as! Int
+        isPaused = true
+        pausedFor = stime * (60/20)
+        initTimer()
+    }
+    
+    @objc
+    func resetTimer(_ sender: NSMenuItem) {
         resetTime()
     }
 }
