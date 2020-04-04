@@ -169,14 +169,14 @@ extension AppDelegate {
             if timeUntilBreak == 1 {
                 showNotification("20 seconds left for next break")
             }
-                // 20 minutes over
+            // 20 minutes over
             else if timeUntilBreak == 0 {
+                NSUserNotificationCenter.default.removeAllDeliveredNotifications()
                 showWindow()
             }
-                // 20s passed after showing window
+            // 20s passed after showing window
             else if timeUntilBreak == -1 {
-                showNotification("Well Done!")
-                // Hide window
+                NSSound(named: "Purr")?.play()
                 closeWindow()
             }
         }
