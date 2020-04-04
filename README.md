@@ -15,7 +15,7 @@ This is a minimalistic Mac app which reminds you to take a 20 second break to lo
 
 ## Usage
 The app adds a 20 minute timer to your menubar.<br/><br/>
-![LookAwayMenu](Artwork/ScreenMenu.png)
+<img alt="LookAwayMenu" src="Artwork/ScreenMenu.png" width="640">
 <br/><br/>
 Once 20 minutes are over, it overlays the screen for 20 seconds asking you to Look Away. Thats it!
 <br/><br/>
