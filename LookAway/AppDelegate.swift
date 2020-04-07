@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             let resetItem: NSMenuItem = {
                 let item = NSMenuItem(
-                    title: "Reset",
+                    title: "Reset Active Timer",
                     action: #selector(resetTimer),
                     keyEquivalent: ""
                 )
