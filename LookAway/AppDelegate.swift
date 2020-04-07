@@ -165,7 +165,6 @@ extension AppDelegate {
         } else {
             timeUntilBreak -= 1
             
-            
             // 1 chunk of 20s left
             if timeUntilBreak == 1 {
                 showNotification("20 seconds left for next break")
@@ -208,12 +207,23 @@ extension AppDelegate {
     
     @objc
     func skipTimer(_ sender: NSMenuItem) {
+        if (isPaused) {
+            // Remove a skip state if it already exists
+            for menuItem in statusBarItem.menu!.items {
+                if menuItem.state == .on {
+                    menuItem.state = .off
+                    break
+                }
+            }
+        }
         timer!.invalidate()
+        
         let stime:Int = sender.representedObject as! Int
         isPaused = true
         pausedFor = stime * (60/20)
         initTimer()
         updateStatusText()
+        sender.state = .on
     }
     
     @objc
