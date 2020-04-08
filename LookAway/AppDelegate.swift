@@ -131,7 +131,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notif.subtitle = message
         NSUserNotificationCenter.default.deliver(notif)
     }
-
+    
+    func resetSkipStates() {
+        if (isPaused) {
+            // Remove a skip state if it already exists
+            for menuItem in statusBarItem.menu!.items {
+                if menuItem.state == .on {
+                    menuItem.state = .off
+                    break
+                }
+            }
+        }
+    }
 }
 
 //
@@ -161,6 +172,7 @@ extension AppDelegate {
             pausedFor-=1
             if pausedFor == 0 {
                 isPaused = false
+                resetSkipStates()
             }
         } else {
             timeUntilBreak -= 1
@@ -207,15 +219,7 @@ extension AppDelegate {
     
     @objc
     func skipTimer(_ sender: NSMenuItem) {
-        if (isPaused) {
-            // Remove a skip state if it already exists
-            for menuItem in statusBarItem.menu!.items {
-                if menuItem.state == .on {
-                    menuItem.state = .off
-                    break
-                }
-            }
-        }
+        resetSkipStates()
         timer!.invalidate()
         
         let stime:Int = sender.representedObject as! Int
