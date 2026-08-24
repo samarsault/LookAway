@@ -1,14 +1,17 @@
 import Cocoa
 
-class WindowController: NSWindowController {
-    
-    override func windowDidLoad() {
-        super.windowDidLoad()
-        window?.styleMask.remove(.titled)
-        window?.styleMask.insert(.fullScreen)
-        window?.isMovableByWindowBackground = true
-        
-        window?.isOpaque = false
-        window?.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0.9)
+final class WindowController: NSWindowController {
+    convenience init(screen: NSScreen, contentViewController: NSViewController) {
+        let window = NSWindow(
+            contentRect: screen.frame,
+            styleMask: BreakWindowConfiguration.styleMask,
+            backing: .buffered,
+            defer: false,
+            screen: screen
+        )
+
+        self.init(window: window)
+        window.contentViewController = contentViewController
+        BreakWindowConfiguration.apply(to: window, on: screen)
     }
 }

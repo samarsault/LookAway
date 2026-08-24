@@ -80,27 +80,6 @@
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--Window Controller-->
-        <scene sceneID="dzQ-Qn-OEY">
-            <objects>
-                <windowController storyboardIdentifier="WindowController" id="KyH-uK-uD0" customClass="WindowController" customModule="LookAway" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" identifier="WindowController" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Mlw-qC-qwi">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="477" y="299" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-                        <connections>
-                            <outlet property="delegate" destination="KyH-uK-uD0" id="QEt-iH-JTv"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="zla-Z2-VCO" kind="relationship" relationship="window.shadowedContentViewController" id="bu9-9W-fFd"/>
-                    </connections>
-                </windowController>
-                <customObject id="NwF-19-oyy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="75" y="235"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="y0Y-7x-jB7">
             <objects>

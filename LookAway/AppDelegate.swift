@@ -1,14 +1,15 @@
 import Cocoa
 import Foundation
+import UserNotifications
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let statusBarItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     var timeUntilBreak = 0
     var timer: Timer? = nil
-    var windowController: NSWindowController? = nil
+    var windowControllers: [WindowController] = []
     
     var isPaused = false
     var pausedFor = 0
@@ -21,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Initialize Timer
         resetTime()
         initTimer()
+        requestNotificationAuthorization()
         
         // Add Menu
         let statusMenu: NSMenu = {
@@ -95,14 +97,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         statusBarItem.menu = statusMenu
         
-        // Initialize  Window
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        
-        if let localWC = storyboard.instantiateController(withIdentifier: "WindowController") as? NSWindowController {
-            let vc = localWC.contentViewController as? ViewController
-            vc?.delegate = self
-            windowController = localWC
-        }
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(screenParametersDidChange),
+            name: NSApplication.didChangeScreenParametersNotification,
+            object: nil
+        )
     }
     
     @objc
@@ -110,26 +110,67 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
         NSApp.presentationOptions.insert(.autoHideDock)
         NSApp.presentationOptions.insert(.autoHideMenuBar)
-        
-        windowController?.showWindow(self)
-        
-        // This is required to hide menu properly
-        windowController?.window?.level = .mainMenu + 1
+
+        rebuildBreakWindows()
     }
     
     func closeWindow() {
-        windowController?.close()
+        closeBreakWindows()
         NSApp.presentationOptions.remove(.autoHideDock)
         NSApp.presentationOptions.remove(.autoHideMenuBar)
         resetTime()
     }
     
     func showNotification(_ message: String) {
-        let notif = NSUserNotification()
-        notif.title = "Look Away"
-        notif.informativeText = ""
-        notif.subtitle = message
-        NSUserNotificationCenter.default.deliver(notif)
+        let content = UNMutableNotificationContent()
+        content.title = "Look Away"
+        content.body = message
+
+        let request = UNNotificationRequest(
+            identifier: "look-away-break-warning",
+            content: content,
+            trigger: nil
+        )
+        UNUserNotificationCenter.current().add(request)
+    }
+
+    func requestNotificationAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, _ in }
+    }
+
+    func rebuildBreakWindows() {
+        closeBreakWindows()
+
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        windowControllers = NSScreen.screens.compactMap { screen in
+            guard let viewController = storyboard.instantiateController(
+                withIdentifier: "ViewController"
+            ) as? ViewController else {
+                return nil
+            }
+
+            viewController.delegate = self
+            let controller = WindowController(
+                screen: screen,
+                contentViewController: viewController
+            )
+            controller.window?.orderFrontRegardless()
+            return controller
+        }
+
+        windowControllers.first(where: { $0.window?.screen == NSScreen.main })?
+            .window?.makeKeyAndOrderFront(self)
+    }
+
+    func closeBreakWindows() {
+        windowControllers.forEach { $0.close() }
+        windowControllers.removeAll()
+    }
+
+    @objc
+    func screenParametersDidChange() {
+        guard !windowControllers.isEmpty else { return }
+        rebuildBreakWindows()
     }
     
     func resetSkipStates() {
@@ -181,7 +222,7 @@ extension AppDelegate {
             }
             // 20 minutes over
             else if timeUntilBreak == 0 {
-                NSUserNotificationCenter.default.removeAllDeliveredNotifications()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                 showWindow()
             }
             // 20s passed after showing window

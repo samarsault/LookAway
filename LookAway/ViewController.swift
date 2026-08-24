@@ -1,21 +1,20 @@
 import Cocoa
 
 // Handle Skip
-protocol VCDelegate {
+protocol VCDelegate: AnyObject {
     func onSkip(_ sender: NSButton)
 }
 
 class ViewController: NSViewController {
     @IBOutlet weak var button: NSButton!
-    var delegate: VCDelegate!
+    weak var delegate: VCDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func skipButtonClick(_ sender: NSButton) {
-        delegate.onSkip(sender)
+        delegate?.onSkip(sender)
     }
     
 }
-
