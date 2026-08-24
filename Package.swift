@@ -4,14 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "LookAwayOverlaySupport",
-    defaultLocalization: "en",
     platforms: [.macOS(.v10_14)],
-    products: [
-        .library(
-            name: "LookAwayOverlaySupport",
-            targets: ["LookAwayOverlaySupport"]
-        ),
-    ],
     targets: [
         .target(
             name: "LookAwayOverlaySupport",
@@ -26,7 +19,6 @@ let package = Package(
                 "ViewController.swift",
             ],
             sources: [
-                "BreakWindowConfiguration.swift",
                 "WindowController.swift",
             ]
         ),

@@ -13,7 +13,6 @@
 		13F5E0A2243223AF00E78FF2 /* DockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E0A1243223AF00E78FF2 /* DockIcon.swift */; };
 		13F5E0A6243235AD00E78FF2 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E0A5243235AD00E78FF2 /* WindowController.swift */; };
 		13F5E0A824323BAE00E78FF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E0A724323BAE00E78FF2 /* ViewController.swift */; };
-		13F5E0AA24323BAE00E78FF2 /* BreakWindowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5E0A924323BAE00E78FF2 /* BreakWindowConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +25,6 @@
 		13F5E0A1243223AF00E78FF2 /* DockIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockIcon.swift; sourceTree = "<group>"; };
 		13F5E0A5243235AD00E78FF2 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		13F5E0A724323BAE00E78FF2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		13F5E0A924323BAE00E78FF2 /* BreakWindowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakWindowConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +59,6 @@
 			children = (
 				13F5E0A724323BAE00E78FF2 /* ViewController.swift */,
 				13A7DC9E2431EBF3008DE01F /* AppDelegate.swift */,
-				13F5E0A924323BAE00E78FF2 /* BreakWindowConfiguration.swift */,
 				13A7DCA22431EBF4008DE01F /* Assets.xcassets */,
 				13A7DCA42431EBF4008DE01F /* Main.storyboard */,
 				13A7DCA72431EBF4008DE01F /* Info.plist */,
@@ -146,7 +143,6 @@
 				13F5E0A6243235AD00E78FF2 /* WindowController.swift in Sources */,
 				13A7DC9F2431EBF3008DE01F /* AppDelegate.swift in Sources */,
 				13F5E0A2243223AF00E78FF2 /* DockIcon.swift in Sources */,
-				13F5E0AA24323BAE00E78FF2 /* BreakWindowConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

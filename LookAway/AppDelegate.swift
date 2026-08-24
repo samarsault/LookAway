@@ -147,8 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return controller
         }
 
-        windowControllers.first(where: { $0.window?.screen == NSScreen.main })?
-            .window?.makeKeyAndOrderFront(self)
+        windowControllers.first?.window?.makeKeyAndOrderFront(self)
     }
 
     func closeBreakWindows() {
