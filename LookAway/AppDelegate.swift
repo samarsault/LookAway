@@ -1,8 +1,7 @@
 import Cocoa
 import Foundation
-import UserNotifications
 
-@main
+@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let statusBarItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -22,7 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Initialize Timer
         resetTime()
         initTimer()
-        requestNotificationAuthorization()
         
         // Add Menu
         let statusMenu: NSMenu = {
@@ -122,20 +120,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func showNotification(_ message: String) {
-        let content = UNMutableNotificationContent()
-        content.title = "Look Away"
-        content.body = message
-
-        let request = UNNotificationRequest(
-            identifier: "look-away-break-warning",
-            content: content,
-            trigger: nil
-        )
-        UNUserNotificationCenter.current().add(request)
-    }
-
-    func requestNotificationAuthorization() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { _, _ in }
+        let notif = NSUserNotification()
+        notif.title = "Look Away"
+        notif.informativeText = ""
+        notif.subtitle = message
+        NSUserNotificationCenter.default.deliver(notif)
     }
 
     func rebuildBreakWindows() {
@@ -222,7 +211,7 @@ extension AppDelegate {
             }
             // 20 minutes over
             else if timeUntilBreak == 0 {
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                NSUserNotificationCenter.default.removeAllDeliveredNotifications()
                 showWindow()
             }
             // 20s passed after showing window

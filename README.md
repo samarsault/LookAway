@@ -23,12 +23,5 @@ Once 20 minutes are over, it overlays the screen for 20 seconds asking you to Lo
 
 ## Build Requirements
 - Swift 5+
-- Xcode 15+
+- XCode 10+
 - macOS 10.14+
-
-## Development
-
-```sh
-swift test
-xcodebuild -project LookAway.xcodeproj -scheme LookAway build
-```
