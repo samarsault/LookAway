@@ -59,4 +59,23 @@ final class BreakWindowConfigurationTests: XCTestCase {
         XCTAssertFalse(window.isReleasedWhenClosed)
         XCTAssertTrue(window.collectionBehavior.contains(.canJoinAllApplications))
     }
+
+    @MainActor
+    func testWindowControllerExpandsItsContentAcrossTheScreen() throws {
+        _ = NSApplication.shared
+        let screen = try XCTUnwrap(NSScreen.main)
+        let contentViewController = NSViewController()
+        contentViewController.view = NSView(
+            frame: NSRect(x: 0, y: 0, width: 560, height: 379)
+        )
+        let controller = WindowController(
+            screen: screen,
+            contentViewController: contentViewController
+        )
+        defer { controller.close() }
+
+        let window = try XCTUnwrap(controller.window)
+        XCTAssertEqual(window.frame, screen.frame)
+        XCTAssertEqual(contentViewController.view.frame, window.contentLayoutRect)
+    }
 }

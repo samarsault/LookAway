@@ -24,9 +24,11 @@ let package = Package(
                 "Info.plist",
                 "LookAway.entitlements",
                 "ViewController.swift",
-                "WindowController.swift",
             ],
-            sources: ["BreakWindowConfiguration.swift"]
+            sources: [
+                "BreakWindowConfiguration.swift",
+                "WindowController.swift",
+            ]
         ),
         .testTarget(
             name: "LookAwayOverlaySupportTests",
