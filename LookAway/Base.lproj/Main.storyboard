@@ -92,7 +92,7 @@
                                 <rect key="frame" x="176" y="154" width="219" height="70"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Look Away" id="6ex-Uo-lIG">
                                     <font key="font" metaFont="systemBold" size="42"/>
-                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -100,7 +100,7 @@
                                 <rect key="frame" x="43" y="123" width="744" height="44"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Look at an object 20 feet away for 20 seconds. You'll hear a sound when its done." id="D08-sg-pur">
                                     <font key="font" metaFont="system" size="22"/>
-                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
