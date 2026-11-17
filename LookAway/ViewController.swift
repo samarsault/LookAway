@@ -11,6 +11,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        button.isHidden = !UserDefaults.standard.bool(forKey: AppDelegate.allowSkipKey)
     }
 
     @IBAction func skipButtonClick(_ sender: NSButton) {

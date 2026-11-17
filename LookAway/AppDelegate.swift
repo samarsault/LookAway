@@ -13,11 +13,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var isPaused = false
     var pausedFor = 0
     let skipTimes = [10, 30, 60, 120]
+    static let allowSkipKey = "allowSkip"
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         DockIcon.standard.setVisibility(false)
-        
+        UserDefaults.standard.register(defaults: [AppDelegate.allowSkipKey: true])
+
         // Initialize Timer
         resetTime()
         initTimer()
@@ -38,6 +40,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }()
             
             menu.addItem(resetItem)
+
+            let breakNowItem = NSMenuItem(
+                title: "Break Now",
+                action: #selector(breakNow),
+                keyEquivalent: ""
+            )
+            breakNowItem.target = self
+            menu.addItem(breakNowItem)
+
             menu.addItem(.separator())
             let skipItem: NSMenuItem = {
                 let item = NSMenuItem(
@@ -87,6 +98,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 return item
             }()
+            let allowSkipItem = NSMenuItem(
+                title: "Show Skip Button on Break",
+                action: #selector(toggleAllowSkip),
+                keyEquivalent: ""
+            )
+            allowSkipItem.target = self
+            allowSkipItem.state = UserDefaults.standard.bool(forKey: AppDelegate.allowSkipKey) ? .on : .off
+            menu.addItem(.separator())
+            menu.addItem(allowSkipItem)
+
             menu.addItem(.separator())
             menu.addItem(quitItem)
             
@@ -163,7 +184,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func resetSkipStates() {
         // Remove a skip state if it already exists
-        for menuItem in statusBarItem.menu!.items {
+        for menuItem in statusBarItem.menu!.items where menuItem.action == #selector(skipTimer) {
             if menuItem.state == .on {
                 menuItem.state = .off
                 break
@@ -262,6 +283,28 @@ extension AppDelegate {
     @objc
     func resetTimer(_ sender: NSMenuItem) {
         resetTime()
+    }
+
+    @objc
+    func breakNow(_ sender: NSMenuItem) {
+        if isPaused {
+            isPaused = false
+            resetSkipStates()
+        }
+        // Restart the timer so the next tick (and window close) lands a full 20s from now
+        timer?.invalidate()
+        timeUntilBreak = 0
+        initTimer()
+        updateStatusText()
+        NSUserNotificationCenter.default.removeAllDeliveredNotifications()
+        showWindow()
+    }
+
+    @objc
+    func toggleAllowSkip(_ sender: NSMenuItem) {
+        let allow = !UserDefaults.standard.bool(forKey: AppDelegate.allowSkipKey)
+        UserDefaults.standard.set(allow, forKey: AppDelegate.allowSkipKey)
+        sender.state = allow ? .on : .off
     }
 }
 
